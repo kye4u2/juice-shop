@@ -74,7 +74,8 @@
     "rsn": "tsx rsn/rsn.ts",
     "rsn:update": "tsx rsn/rsn-update.ts",
     "vagrant": "cd vagrant && vagrant up",
-    "sbom": "cyclonedx-npm --omit=dev --output-format=JSON --output-file=bom.json"
+    "sbom": "cyclonedx-npm --omit=dev --output-format=JSON --output-file=bom.json",
+    "ride-along-check": "echo ok"
   },
   "nyc": {
     "extends": "@istanbuljs/nyc-config-typescript",
