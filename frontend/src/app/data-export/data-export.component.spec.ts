@@ -99,15 +99,27 @@ describe('DataExportComponent', () => {
 
     it('should show the confirmation and fetch user data and reset data export form on requesting data export', () => {
         dataSubjectService.dataExport.mockReturnValue(of({ confirmation: 'Data being exported', userData: '{ user data }' }))
-        vi.spyOn(window, 'open').mockReturnValue({ document: { write: vi.fn() } } as any)
+        const exportDocument = document.implementation.createHTMLDocument('')
+        vi.spyOn(window, 'open').mockReturnValue({ document: exportDocument } as any)
         vi.spyOn(component, 'resetForm')
         vi.spyOn(component, 'ngOnInit')
         component.save()
         expect(component.confirmation).toBe('Data being exported')
         expect(component.userData).toBe('{ user data }')
         expect(component.error).toBeNull()
+        expect(exportDocument.querySelector('pre')?.textContent).toBe('{ user data }')
         expect(component.ngOnInit).toHaveBeenCalled()
         expect(component.resetForm).toHaveBeenCalled()
+    })
+
+    it('should show exported user data as plain text instead of rendering it as HTML', () => {
+        const userData = '{ "message": "<img src=x onerror=alert(1)>" }'
+        dataSubjectService.dataExport.mockReturnValue(of({ confirmation: 'Data being exported', userData }))
+        const exportDocument = document.implementation.createHTMLDocument('')
+        vi.spyOn(window, 'open').mockReturnValue({ document: exportDocument } as any)
+        component.save()
+        expect(exportDocument.querySelector('pre')?.textContent).toBe(userData)
+        expect(exportDocument.querySelector('img')).toBeNull()
     })
 
     it('should clear the form and display error if exporting data fails', () => {
