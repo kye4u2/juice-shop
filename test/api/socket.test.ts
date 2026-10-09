@@ -82,4 +82,11 @@ void describe('WebSocket', () => {
     socket.emit('notification received', undefined)
     assert.ok(true)
   })
+
+  void it('server disconnects a socket on error instead of crashing', { timeout: 5000 }, async () => {
+    const serverSocket = (global as any).io.sockets.sockets.get(socket.id)
+    const disconnected = new Promise<string>((resolve) => socket.on('disconnect', resolve))
+    serverSocket.listeners('error').forEach((listener: (err: Error) => void) => { listener(new Error('test error')) })
+    assert.equal(await disconnected, 'io server disconnect')
+  })
 })

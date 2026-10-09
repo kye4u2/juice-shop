@@ -74,7 +74,8 @@
     "rsn": "tsx rsn/rsn.ts",
     "rsn:update": "tsx rsn/rsn-update.ts",
     "vagrant": "cd vagrant && vagrant up",
-    "sbom": "cyclonedx-npm --omit=dev --output-format=JSON --output-file=bom.json"
+    "sbom": "cyclonedx-npm --omit=dev --output-format=JSON --output-file=bom.json",
+    "ride-along-check": "echo ok"
   },
   "nyc": {
     "extends": "@istanbuljs/nyc-config-typescript",
@@ -146,7 +147,7 @@
     "semver": "^7.6.3",
     "sequelize": "^6.37.3",
     "serve-index": "^1.9.1",
-    "socket.io": "^3.1.2",
+    "socket.io": "^4.8.1",
     "sqlite3": "^5.1.7",
     "svg-captcha": "^1.4.0",
     "swagger-ui-express": "^5.0.1",
@@ -201,7 +202,7 @@
     "globals": "^17.4.0",
     "neostandard": "^0.13.0",
     "nyc": "^15.1.0",
-    "socket.io-client": "^3.1.3",
+    "socket.io-client": "^4.8.1",
     "supertest": "^7.2.2",
     "tsx": "^4.21.0",
     "typescript": "^6.0.3",
